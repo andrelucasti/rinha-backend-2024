@@ -1,12 +1,12 @@
 package io.andrelucas
 
-import zio.http._
-import zio._
+import io.andrelucas.clients.ClientController
+import zio.ZIOAppDefault
+import zio.http.Server
+
 
 object RinhaServer extends ZIOAppDefault {
-  val app = Routes(
-    Method.GET / "text" -> handler(Response.text("Hello World"))
-  ).toHttpApp
-
-  override def run = Server.serve(app).provide(Server.default)
+  
+  override def run = Server.serve(ClientController().withDefaultErrorResponse)
+    .provide(Server.defaultWithPort(8080))
 }

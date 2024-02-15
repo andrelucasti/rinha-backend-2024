@@ -10,9 +10,9 @@ lazy val root = (project in file("."))
 
 lazy val zioVersion = "2.1-RC1"
 
-libraryDependencies += "dev.zio" %% "zio-http" % "3.0.0-RC3"
-
 libraryDependencies ++= Seq(
+  "dev.zio" %% "zio-http" % "3.0.0-RC2",
+  "dev.zio" %% "zio-http-testkit" % "3.0.0-RC2",
   "dev.zio" %% "zio" % zioVersion,
   "dev.zio" %% "zio-test" % zioVersion,
   "dev.zio" %% "zio-test-sbt" % zioVersion,

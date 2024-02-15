@@ -17,7 +17,7 @@ object TransactionTest extends ZIOSpecDefault {
       assertZIO(transaction.map(_.transactionType))(Assertion.equalTo(TransactionType.CREDIT))
     },
 
-    test("shoud create a debit transaction") {
+    test("should create a debit transaction") {
       val transaction = ZIO.succeed(
         Transaction.debit(1000, "Credit Transaction", 1)
       )
