@@ -1,7 +1,8 @@
 package io.andrelucas
 package clients
 
-import io.andrelucas.transaction.TransactionRequest
+import transaction.{TransactionRepository, TransactionRequest, TransactionService}
+
 import zio.ZIO
 import zio.http.*
 import zio.json.*
@@ -14,11 +15,12 @@ object ClientController {
         transactionRequest <- req.body.asString.map(_.fromJson[TransactionRequest])
         r <- transactionRequest match
           case Left(e) => ZIO.debug(s"Falha ao submeter transacao $e").as(Response.text(e).withStatus(Status.BadRequest))
-          case Right(transactionRequest) => ZIO.succeed(
-            Response.json(transactionRequest.toJsonPretty)
-          )
+          case Right(transactionRequest) => TransactionService()
+            .createNew(0, transactionRequest)
+            .map(tResponse => Response.json(tResponse.toJson))
+        
       } yield r).orDie
   }
   
-  def apply(): Http[Any, Throwable, Request, Response] = postHandler
+  def apply(): Http[TransactionRepository, Throwable, Request, Response] = postHandler
 }
