@@ -1,10 +1,10 @@
 package io.andrelucas
 
-import io.andrelucas.clients.ClientController
-import io.andrelucas.transaction.{InMemoryTransactionRepository, TransactionService}
+import clients.ClientController
+import transaction.InMemoryTransactionRepository
+
 import zio.*
 import zio.http.*
-import zio.http.Server
 
 //https://www.baeldung.com/scala/zio-http
 //https://zio.dev/guides/quickstarts/restful-webservice/

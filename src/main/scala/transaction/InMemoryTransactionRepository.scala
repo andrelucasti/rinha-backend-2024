@@ -10,10 +10,9 @@ import scala.collection.mutable.ListBuffer
 
 case class InMemoryTransactionRepository(buffer:ListBuffer[Transaction]) extends TransactionRepository:
 
-  override def save(transaction: Transaction): Task[(Limit, Balance)] =
+  override def save(transaction: Transaction): Task[Transaction] =
     buffer += transaction
-    
-    ZIO.succeed((Limit(transaction.value), Balance(transaction.value)))
+    ZIO.succeed(transaction)
     
     
 

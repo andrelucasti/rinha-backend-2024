@@ -15,10 +15,12 @@ object ClientController {
         transactionRequest <- req.body.asString.map(_.fromJson[TransactionRequest])
         r <- transactionRequest match
           case Left(e) => ZIO.debug(s"Falha ao submeter transacao $e").as(Response.text(e).withStatus(Status.BadRequest))
-          case Right(transactionRequest) => TransactionService()
-            .createNew(0, transactionRequest)
-            .map(tResponse => Response.json(tResponse.toJson))
-        
+          case Right(transactionRequest) =>
+            val client = ClientService().findById(id.toLong)
+            TransactionService()
+              .createNew(client, transactionRequest)
+              .map(tResponse => Response.json(tResponse.toJson))
+
       } yield r).orDie
   }
   
