@@ -1,8 +1,7 @@
 package io.andrelucas
 package unit
 
-import clients.{Balance, Limit}
-import transaction.{LimitException, Transaction, TransactionType}
+import transaction.Transaction
 
 import org.scalatest.Assertions
 import org.scalatest.flatspec.AnyFlatSpec
@@ -19,9 +18,5 @@ class TransactionTest extends AnyFlatSpec {
 
     Assertions.assert(transaction.transactionType.prefix() == "d")
     Assertions.assert(transaction.value == 2000)
-  }
-
-  it should "throw exception when balance is less than limit" in {
-
   }
 }
