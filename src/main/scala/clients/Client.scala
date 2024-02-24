@@ -1,4 +1,4 @@
 package io.andrelucas
 package clients
 
-case class Client(id: Long, name: String, limit: Limit, balance: Balance)
+case class Client(id: Long, name: String, balance: Balance)

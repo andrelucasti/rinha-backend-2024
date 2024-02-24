@@ -10,12 +10,7 @@ lazy val root = (project in file("."))
 
 lazy val zioVersion = "2.1-RC1"
 
-libraryDependencies ++= Seq(
-  "dev.zio" %% "zio-http" % "3.0.0-RC2",
-  "dev.zio" %% "zio-http-testkit" % "3.0.0-RC2",
-  "dev.zio" %% "zio" % zioVersion,
-  "dev.zio" %% "zio-test" % zioVersion,
-  "dev.zio" %% "zio-test-sbt" % zioVersion,
-  "dev.zio" %% "zio-streams" % zioVersion,
-  "dev.zio" %% "zio-test-junit" % zioVersion
-)
+libraryDependencies += "io.javalin" % "javalin" % "6.1.0"
+libraryDependencies += "io.javalin" % "javalin-bundle" % "6.1.0"
+libraryDependencies += "org.scalatest" %% "scalatest" % "3.2.18" % "test"
+libraryDependencies += "org.json4s" %% "json4s-native" % "4.0.7"

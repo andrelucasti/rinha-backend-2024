@@ -1,4 +1,4 @@
 package io.andrelucas
 package clients
 
-case class Balance(value: Long)
+case class Balance(total: Long, limit: Limit)

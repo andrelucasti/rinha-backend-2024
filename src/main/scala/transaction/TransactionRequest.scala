@@ -1,13 +1,21 @@
 package io.andrelucas
 package transaction
 
-import zio.json.{DeriveJsonEncoder, DeriveJsonDecoder, JsonDecoder, JsonEncoder}
+import org.json4s.*
+import org.json4s.native.JsonMethods.*
+import org.json4s.native.Serialization.{read, write}
 
-case class TransactionRequest(valor: Int, tipo: String, descricao: String)
+case class TransactionRequest(valor: Int,
+                              tipo: String,
+                              descricao: String)
 
-object TransactionRequest:
-  given JsonEncoder[TransactionRequest] =
-    DeriveJsonEncoder.gen[TransactionRequest]
+object TransactionRequest {
+  def fromJson(json:String): TransactionRequest =
+    read[TransactionRequest](json)
 
-  given JsonDecoder[TransactionRequest] =
-    DeriveJsonDecoder.gen[TransactionRequest]
+  //implicit val
+  given formats : DefaultFormats.type = DefaultFormats
+  extension (tr: TransactionRequest)
+    def toJson: String = 
+      write(tr)
+}
