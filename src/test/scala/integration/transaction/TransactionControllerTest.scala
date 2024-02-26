@@ -1,10 +1,10 @@
 package io.andrelucas
 package integration.transaction
 
-import clients.*
-import transaction.*
-
-import io.andrelucas.statement.{InMemoryStatementRepository, StatementRepository, StatementService}
+import io.andrelucas.app.transaction.{TransactionRequest, TransactionResponse}
+import io.andrelucas.business.client.{Balance, Client, ClientRepository, InMemoryClientRepository, Limit}
+import io.andrelucas.business.statement.{InMemoryStatementRepository, StatementRepository, StatementService}
+import io.andrelucas.business.transaction.{InMemoryTransactionRepository, TransactionRepository, TransactionService}
 import io.javalin.Javalin
 import io.javalin.http.HttpStatus
 import io.javalin.testtools.JavalinTest

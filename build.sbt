@@ -8,9 +8,9 @@ lazy val root = (project in file("."))
     idePackagePrefix := Some("io.andrelucas")
   )
 
-lazy val zioVersion = "2.1-RC1"
-
 libraryDependencies += "io.javalin" % "javalin" % "6.1.0"
 libraryDependencies += "io.javalin" % "javalin-bundle" % "6.1.0"
 libraryDependencies += "org.scalatest" %% "scalatest" % "3.2.18" % "test"
 libraryDependencies += "org.json4s" %% "json4s-native" % "4.0.7"
+libraryDependencies += "com.typesafe.slick" %% "slick" % "3.5.0-RC1"
+libraryDependencies += "org.postgresql" % "postgresql" % "42.7.1"

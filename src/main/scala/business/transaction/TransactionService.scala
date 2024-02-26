@@ -1,8 +1,9 @@
 package io.andrelucas
-package transaction
+package business.transaction
 
-import clients.{Client, ClientRepository}
-import statement.StatementRepository
+import io.andrelucas.app.transaction.{TransactionRequest, TransactionResponse}
+import io.andrelucas.business.client.{Client, ClientRepository}
+import io.andrelucas.business.statement.StatementRepository
 
 import scala.util.Try
 

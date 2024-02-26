@@ -1,5 +1,5 @@
 package io.andrelucas
-package statement
+package app.statement
 
 import org.json4s.*
 import org.json4s.native.JsonMethods.*

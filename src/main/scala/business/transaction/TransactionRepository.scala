@@ -1,5 +1,5 @@
 package io.andrelucas
-package transaction
+package business.transaction
 
 import scala.collection.mutable
 

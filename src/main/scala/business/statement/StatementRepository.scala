@@ -1,8 +1,8 @@
 package io.andrelucas
-package statement
+package business.statement
 
-import clients.ClientRepository
-import transaction.{Transaction, TransactionRepository}
+import business.client.ClientRepository
+import io.andrelucas.business.transaction.{Transaction, TransactionRepository}
 
 import scala.collection.mutable
 

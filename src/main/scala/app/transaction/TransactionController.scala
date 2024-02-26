@@ -1,7 +1,8 @@
 package io.andrelucas
-package transaction
+package app.transaction
 
-import clients.{Client, ClientRepository}
+import business.client.{Client, ClientRepository}
+import business.transaction.{LimitException, TransactionService}
 
 import io.javalin.http.{Context, HttpStatus}
 

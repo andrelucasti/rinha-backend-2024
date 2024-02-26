@@ -1,6 +1,5 @@
 package io.andrelucas
-package transaction
-
+package business.transaction
 
 import java.time.LocalDateTime
 import scala.util.Try

@@ -1,5 +1,5 @@
 package io.andrelucas
-package transaction
+package app.transaction
 
 import org.json4s.*
 import org.json4s.native.JsonMethods.*

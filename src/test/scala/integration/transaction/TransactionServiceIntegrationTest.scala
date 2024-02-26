@@ -1,10 +1,10 @@
 package io.andrelucas
 package integration.transaction
 
-import clients.*
-import statement.{InMemoryStatementRepository, StatementRepository, StatementService}
-import transaction.{InMemoryTransactionRepository, TransactionRepository, TransactionRequest, TransactionService}
-
+import io.andrelucas.app.transaction.TransactionRequest
+import io.andrelucas.business.client.{Balance, Client, ClientRepository, InMemoryClientRepository, Limit}
+import io.andrelucas.business.statement.{InMemoryStatementRepository, StatementRepository, StatementService}
+import io.andrelucas.business.transaction.{InMemoryTransactionRepository, TransactionRepository, TransactionService}
 import org.scalatest.Assertions
 import org.scalatest.flatspec.AnyFlatSpec
 

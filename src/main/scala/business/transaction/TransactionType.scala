@@ -1,8 +1,7 @@
 package io.andrelucas
-package transaction
+package business.transaction
 
-import io.andrelucas.clients._
-import io.andrelucas.transaction
+import business.client.{Balance, Client}
 
 trait TransactionType:
   def newBalance(client: Client): Balance

@@ -1,5 +1,5 @@
 package io.andrelucas
-package transaction
+package business.transaction
 
 case class LimitException(private var msg: String) extends Throwable(msg)
   

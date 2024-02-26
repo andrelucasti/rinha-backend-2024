@@ -1,7 +1,8 @@
 package io.andrelucas
-package statement
+package business.statement
 
-import clients.ClientRepository
+import business.client.ClientRepository
+import io.andrelucas.app.statement.{BalanceResponse, StatementResponse, StatementTransactionResponse}
 
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter

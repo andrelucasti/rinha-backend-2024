@@ -1,8 +1,8 @@
 package io.andrelucas
-package statement
+package app.statement
 
-import clients.ClientRepository
-
+import io.andrelucas.business.client.ClientRepository
+import io.andrelucas.business.statement.StatementService
 import io.javalin.http.{Context, HttpStatus}
 
 case class StatementController()

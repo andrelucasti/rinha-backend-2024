@@ -1,5 +1,5 @@
 package io.andrelucas
-package clients
+package business.client
 
 case class Limit(value: Long):
   def until: Long = value * -1

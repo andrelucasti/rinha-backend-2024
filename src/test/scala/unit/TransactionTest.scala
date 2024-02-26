@@ -1,8 +1,7 @@
 package io.andrelucas
 package unit
 
-import transaction.Transaction
-
+import io.andrelucas.business.transaction.Transaction
 import org.scalatest.Assertions
 import org.scalatest.flatspec.AnyFlatSpec
 

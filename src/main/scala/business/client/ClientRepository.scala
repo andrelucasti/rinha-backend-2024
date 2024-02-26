@@ -1,5 +1,7 @@
 package io.andrelucas
-package clients
+package business.client
+
+import business.client.{Balance, Client, Limit}
 
 trait ClientRepository {
   def save(client: Client): Unit

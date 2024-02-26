@@ -1,8 +1,8 @@
 package io.andrelucas
-package statement
+package business.statement
 
-import clients.Balance
-import transaction.Transaction
+import business.client.Balance
+import io.andrelucas.business.transaction.Transaction
 
 import java.time.LocalDateTime
 

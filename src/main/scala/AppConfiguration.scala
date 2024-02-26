@@ -1,9 +1,10 @@
 package io.andrelucas
 
-import clients.ClientRepository
-import transaction.{TransactionController, TransactionService}
-
-import io.andrelucas.statement.{StatementController, StatementService}
+import io.andrelucas.app.statement.StatementController
+import io.andrelucas.app.transaction.TransactionController
+import io.andrelucas.business.client.ClientRepository
+import io.andrelucas.business.statement.StatementService
+import io.andrelucas.business.transaction.TransactionService
 import io.javalin.Javalin
 import io.javalin.apibuilder.ApiBuilder.*
 
