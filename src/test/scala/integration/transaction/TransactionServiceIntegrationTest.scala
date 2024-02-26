@@ -30,8 +30,8 @@ class TransactionServiceIntegrationTest extends AnyFlatSpec {
     Assertions.assert(transaction.clientId == client.id)
     Assertions.assert(transaction.value == 1000)
 
-    Assertions.assert(response.limit == 2000)
-    Assertions.assert(response.balance == 1500)
+    Assertions.assert(response.limite == 2000)
+    Assertions.assert(response.saldo == 1500)
 
   }
 }

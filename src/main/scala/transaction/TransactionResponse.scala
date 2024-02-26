@@ -5,7 +5,7 @@ import org.json4s.*
 import org.json4s.native.JsonMethods.*
 import org.json4s.native.Serialization.{read, write}
 
-case class TransactionResponse(limit: Long, balance: Long)
+case class TransactionResponse(limite: Long, saldo: Long)
 
 object TransactionResponse {
   def fromJson(json:String): TransactionResponse =

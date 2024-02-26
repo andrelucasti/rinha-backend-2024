@@ -39,8 +39,8 @@ class TransactionControllerTest extends AnyFlatSpec {
       val transactionResponse = TransactionResponse.fromJson(response.body.string)
 
       Assertions.assert(response.code() == HttpStatus.OK.getCode)
-      Assertions.assert(transactionResponse.limit == client.balance.limit.value)
-      Assertions.assert(transactionResponse.balance == 1000)
+      Assertions.assert(transactionResponse.limite == client.balance.limit.value)
+      Assertions.assert(transactionResponse.saldo == 1000)
     })
   }
 
@@ -56,8 +56,8 @@ class TransactionControllerTest extends AnyFlatSpec {
       val transactionResponse = TransactionResponse.fromJson(response.body.string)
 
       Assertions.assert(response.code() == HttpStatus.OK.getCode)
-      Assertions.assert(transactionResponse.limit == client.balance.limit.value)
-      Assertions.assert(transactionResponse.balance == 2000)
+      Assertions.assert(transactionResponse.limite == client.balance.limit.value)
+      Assertions.assert(transactionResponse.saldo == 2000)
     })
   }
 
@@ -73,8 +73,8 @@ class TransactionControllerTest extends AnyFlatSpec {
       val transactionResponse = TransactionResponse.fromJson(response.body.string)
 
       Assertions.assert(response.code() == HttpStatus.OK.getCode)
-      Assertions.assert(transactionResponse.limit == client.balance.limit.value)
-      Assertions.assert(transactionResponse.balance == 500)
+      Assertions.assert(transactionResponse.limite == client.balance.limit.value)
+      Assertions.assert(transactionResponse.saldo == 500)
     })
   }
 
