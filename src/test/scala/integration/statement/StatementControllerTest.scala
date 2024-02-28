@@ -15,12 +15,11 @@ import org.scalatest.flatspec.AnyFlatSpec
 
 class StatementControllerTest extends AnyFlatSpec {
   val clientRepository: ClientRepository = InMemoryClientRepository()
-
-  val statementRepository: StatementRepository = InMemoryStatementRepository(clientRepository)
-  val statementService: StatementService = StatementService(clientRepository, statementRepository)
-
   val transactionRepository: TransactionRepository = InMemoryTransactionRepository()
-  val transactionService: TransactionService = TransactionService(transactionRepository, statementRepository, clientRepository)
+  val statementRepository: StatementRepository = InMemoryStatementRepository(transactionRepository, clientRepository)
+
+  val statementService: StatementService = StatementService(statementRepository)
+  val transactionService: TransactionService = TransactionService(transactionRepository, clientRepository)
 
   val app: Javalin = AppConfiguration(clientRepository, transactionService, statementService)
 

@@ -2,19 +2,24 @@ package io.andrelucas
 
 import business.client.{ClientRepository, InMemoryClientRepository}
 import business.statement.{InMemoryStatementRepository, StatementRepository, StatementService}
-import business.transaction.{InMemoryTransactionRepository, TransactionRepository, TransactionService}
+import business.transaction.{TransactionRepository, TransactionService}
+
+import io.andrelucas.repository.client.InDiskClientRepository
+import io.andrelucas.repository.transaction.InDiskTransactionRepository
+import slick.jdbc.JdbcBackend.Database
 
 object App {
 
   @main
   def main(): Unit = {
-    val clientRepository: ClientRepository = InMemoryClientRepository()
+    val db = Database.forConfig("rinhadb")
+    val clientRepository: ClientRepository = InDiskClientRepository(db)
+    val transactionRepository: TransactionRepository = InDiskTransactionRepository(db)
+    
+    val statementRepository: StatementRepository = InMemoryStatementRepository(transactionRepository, clientRepository)
 
-    val statementRepository: StatementRepository = InMemoryStatementRepository(clientRepository)
-    val statementService = StatementService(clientRepository, statementRepository)
-
-    val transactionRepository: TransactionRepository = InMemoryTransactionRepository()
-    val transactionService: TransactionService = TransactionService(transactionRepository, statementRepository, clientRepository)
+    val statementService = StatementService(statementRepository)
+    val transactionService: TransactionService = TransactionService(transactionRepository, clientRepository)
 
     AppConfiguration(clientRepository, transactionService, statementService)
       .start(7070)

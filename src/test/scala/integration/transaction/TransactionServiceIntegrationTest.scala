@@ -10,13 +10,13 @@ import org.scalatest.flatspec.AnyFlatSpec
 
 class TransactionServiceIntegrationTest extends AnyFlatSpec {
   val clientRepository: ClientRepository = InMemoryClientRepository()
-
-  val statementRepository: StatementRepository = InMemoryStatementRepository(clientRepository)
-  val statementService: StatementService = StatementService(clientRepository, statementRepository)
-
   val transactionRepository: TransactionRepository = InMemoryTransactionRepository()
   
-  val subject: TransactionService = TransactionService(transactionRepository, statementRepository, clientRepository)
+  val statementRepository: StatementRepository = InMemoryStatementRepository(transactionRepository, clientRepository)
+
+  val statementService: StatementService = StatementService(statementRepository)
+  
+  val subject: TransactionService = TransactionService(transactionRepository, clientRepository)
 
   it should "return add new balance when transaction is credit" in {
     val client = Client(1, "Andre", balance = Balance(500, Limit(2000)))

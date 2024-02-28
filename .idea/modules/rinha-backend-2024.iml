@@ -38,6 +38,7 @@
     <orderEntry type="library" name="sbt: io.micrometer:micrometer-core:1.10.1:jar" level="project" />
     <orderEntry type="library" name="sbt: io.micrometer:micrometer-jetty11:1.10.1:jar" level="project" />
     <orderEntry type="library" name="sbt: io.micrometer:micrometer-observation:1.10.1:jar" level="project" />
+    <orderEntry type="library" name="sbt: org.checkerframework:checker-qual:3.41.0:jar" level="project" />
     <orderEntry type="library" name="sbt: org.conscrypt:conscrypt-openjdk-uber:2.5.2:jar" level="project" />
     <orderEntry type="library" name="sbt: org.eclipse.jetty.http2:http2-common:11.0.19:jar" level="project" />
     <orderEntry type="library" name="sbt: org.eclipse.jetty.http2:http2-hpack:11.0.19:jar" level="project" />
@@ -72,7 +73,7 @@
     <orderEntry type="library" name="sbt: org.json4s:json4s-native_3:4.0.7:jar" level="project" />
     <orderEntry type="library" name="sbt: org.json4s:json4s-scalap_3:4.0.7:jar" level="project" />
     <orderEntry type="library" name="sbt: org.latencyutils:LatencyUtils:2.0.3:jar" level="project" />
-    <orderEntry type="library" name="sbt: org.postgresql:postgresql:42.2.5:jar" level="project" />
+    <orderEntry type="library" name="sbt: org.postgresql:postgresql:42.7.1:jar" level="project" />
     <orderEntry type="library" name="sbt: org.reactivestreams:reactive-streams:1.0.4:jar" level="project" />
     <orderEntry type="library" scope="TEST" name="sbt: org.scala-lang.modules:scala-xml_3:2.1.0:jar" level="project" />
     <orderEntry type="library" name="sbt: org.scala-lang:scala-library:2.13.10:jar" level="project" />

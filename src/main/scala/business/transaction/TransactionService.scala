@@ -7,8 +7,7 @@ import io.andrelucas.business.statement.StatementRepository
 
 import scala.util.Try
 
-case class TransactionService(transactionRepository: TransactionRepository, 
-                              statementRepository: StatementRepository,
+case class TransactionService(transactionRepository: TransactionRepository,
                               clientRepository: ClientRepository):
   def createTransactionBy(client: Client, 
                           transactionRequest: TransactionRequest): Try[(TransactionResponse, Transaction)] =
@@ -27,7 +26,6 @@ case class TransactionService(transactionRepository: TransactionRepository,
   
   def save(transaction: Transaction, client: Client): Unit = {
     transactionRepository.save(transaction)
-    statementRepository.save(transaction)
 
     val balance = transaction.transactionType.newBalance(client)
     clientRepository.updateBalance(client, balance)

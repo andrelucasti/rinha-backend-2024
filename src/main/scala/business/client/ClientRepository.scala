@@ -14,7 +14,7 @@ class InMemoryClientRepository extends ClientRepository:
     2L -> Client(2, "Nberto", Balance(0,Limit(1000)))
   )
 
-  override def save(client: Client): Unit = {
+  def save(client: Client): Unit = {
     data += (client.id -> client)
   }
   override def findById(clientId: Long): Option[Client] = {

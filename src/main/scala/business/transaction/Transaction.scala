@@ -10,6 +10,9 @@ case class Transaction(value: Long,
                        clientId: Long,
                        date: LocalDateTime)
 object Transaction:
+  
+  
+  
   def create(value: Long, 
              transactionType: String, 
              description: String, 
@@ -25,3 +28,10 @@ object Transaction:
       Transaction(value, t, description, clientId, LocalDateTime.now())
     }
 
+
+  def restore(value: Long, transactionType: String, description: String, clientId: Long, date: LocalDateTime): Transaction =
+    val t = transactionType match
+      case "c" => CreditTransaction(value)
+      case "d" => DebitTransaction(value)
+      
+    Transaction(value, t, description, clientId, date)  
