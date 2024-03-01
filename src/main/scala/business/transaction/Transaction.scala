@@ -23,7 +23,7 @@ object Transaction:
       val t = transactionType match
         case "c" => CreditTransaction(value)
         case "d" => DebitTransaction(value)
-        case _ => throw UnsupportedOperationException("transactio type should be 'c' -> CREDIT or 'd' -> DEBIT")
+        case _ => throw UnsupportedOperationException("transaction type should be 'c' -> CREDIT or 'd' -> DEBIT")
       
       Transaction(value, t, description, clientId, LocalDateTime.now())
     }

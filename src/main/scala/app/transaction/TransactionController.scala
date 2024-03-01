@@ -2,7 +2,7 @@ package io.andrelucas
 package app.transaction
 
 import business.client.{Client, ClientRepository}
-import business.transaction.{LimitException, TransactionService}
+import business.transaction.{LimitException, RequiredException, TransactionService}
 
 import io.javalin.http.{Context, HttpStatus}
 
@@ -24,7 +24,9 @@ object TransactionController:
         
         transactionTuple match
           case Failure(exception: LimitException) => ctx.status(HttpStatus.UNPROCESSABLE_CONTENT)
+          case Failure(exception: RequiredException) => ctx.status(HttpStatus.BAD_REQUEST)
           case Failure(exception) => ctx.status(HttpStatus.INTERNAL_SERVER_ERROR)
+          
           case Success(tuple) =>
             val response = tuple._1
             val transaction = tuple._2

@@ -86,4 +86,14 @@ class TransactionControllerTest extends AnyFlatSpec {
       Assertions.assert(response.code() == HttpStatus.UNPROCESSABLE_CONTENT.getCode)
     })
   }
+
+  it should "return http status 400 when description is null or empty " in {
+    JavalinTest.test(app, (s, c) => {
+      val client = Client(1, "Andre", Balance(0, Limit(1000)))
+      clientRepository.save(client)
+
+      val response = c.post(s"/clientes/${client.id}/transacoes", TransactionRequest(1000, "d", "").toJson)
+      Assertions.assert(response.code() == HttpStatus.BAD_REQUEST.getCode)
+    })
+  }
 }

@@ -10,7 +10,7 @@ CREATE TABLE clientes (
 
 create table transactions (
                               id serial primary key,
-                              description varchar(100) not null,
+                              description varchar(20) not null,
                               value integer not null,
                               transaction_type char not null,
                               client_id integer not null,

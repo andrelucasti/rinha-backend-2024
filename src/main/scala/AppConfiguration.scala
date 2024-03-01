@@ -13,12 +13,17 @@ object AppConfiguration {
             transactionService: TransactionService,
             statementService: StatementService) :Javalin = {
     val javalin = Javalin.create(config => {
+      config.useVirtualThreads = true
       config.router.apiBuilder(() => {
         path("/clientes/{id}/transacoes", () => {
-          post(ctx => TransactionController.createNewTransaction(ctx, clientRepository, transactionService))
+          post(ctx => {
+            ctx.async(() => TransactionController.createNewTransaction(ctx, clientRepository, transactionService))
+          })
         })
         path("/clientes/{id}/extrato", () => {
-          get(ctx => StatementController.getStatement(ctx, clientRepository, statementService))
+          get(ctx => {
+            ctx.async(() => StatementController.getStatement(ctx, clientRepository, statementService))
+          })
         })
       })
     })
