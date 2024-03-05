@@ -26,22 +26,30 @@ case class InDiskClientRepository(db: Database) extends ClientRepository {
     val option = Await.result(future, 2.second)
 
     option.headOption.map(
-      table => ClientEntity(table.id, table.name, table.limit, table.balance, table.updatedAt).toClient
+      table => ClientEntity(
+        table.id,
+        table.name,
+        table.limit,
+        table.balance,
+        table.version,
+        table.updatedAt
+      ).toClient
     )
-
 
   override def updateBalance(client: Client, balance: Balance): Unit =
 
     // Pessimistic lock
-//    val action = clientTable.filter(_.id === client.id)
-//      .forUpdate
-//      .result
-//      .head
-//      .flatMap(_ => clientTable.filter(_.id === client.id)
-//        .map(c => (c.balance, c.updatedAt))
-//        .update((balance.total, LocalDateTime.now()))
-//      ).transactionally
+    //updateWithPessimisticLock(client, balance)
 
+    // Optimistic lock
+    updateWithOptimisticLock(client, balance)
+
+
+    // no lock
+    //updateNoLock(client, balance)
+
+
+  private def updateNoLock(client: Client, balance: Balance): Unit = {
     val action = clientTable
       .filter(_.id === client.id)
       .map(client => (client.balance, client.updatedAt))
@@ -49,7 +57,54 @@ case class InDiskClientRepository(db: Database) extends ClientRepository {
       .transactionally
 
     db.run(action).onComplete{
-      case Success(value) => println(s"the client ${client.id} has been updated limit ${balance.limit.value} and balance ${balance.total}")
+      case Success(result) =>
+        // Check the result to see if the update was successful
+        if (result == 1) {
+          println("Update successful")
+        } else {
+          println("Update failed - client not found")
+        }
+
       case Failure(exception) => exception.printStackTrace()
     }
+  }
+
+  private def updateWithPessimisticLock(client: Client, balance: Balance): Unit = {
+
+    val action = DBIO.seq(
+      sqlu"BEGIN TRANSACTION",
+      sqlu" SELECT * FROM clientes WHERE id = ${client.id} FOR UPDATE",
+      clientTable.filter(_.id === client.id)
+        .map(client => (client.balance, client.updatedAt))
+        .update(balance.total, LocalDateTime.now()),
+
+      sqlu"COMMIT"
+    )
+
+    db.run(
+      action
+    )
+  }
+
+  private def updateWithOptimisticLock(client: Client, balance: Balance): Unit = {
+    val action = (for {
+      clientForUpdate <- clientTable.filter(_.id === client.id).result.head
+      update <- clientTable
+        .filter(f => f.id === client.id && f.version === clientForUpdate.version)
+        .map(c => (c.balance, c.version, c.updatedAt))
+        .update(balance.total, clientForUpdate.version + 1, LocalDateTime.now())
+    } yield update).transactionally
+
+    db.run(action).onComplete{
+      case Success(result) =>
+        // Check the result to see if the update was successful
+        if (result == 1) {
+          println("Update with optimistic lock successful")
+        } else {
+          println("Update failed - Item not found or version mismatch")
+        }
+
+      case Failure(exception) => exception.printStackTrace()
+    }
+  }
 }

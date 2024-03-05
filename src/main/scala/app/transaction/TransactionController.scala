@@ -2,7 +2,7 @@ package io.andrelucas
 package app.transaction
 
 import business.client.{Client, ClientRepository}
-import business.transaction.{LimitException, RequiredException, TransactionService}
+import business.transaction.{LimitException, RequiredException, TenCharactersException, TransactionService}
 
 import io.javalin.http.{Context, HttpStatus}
 
@@ -19,12 +19,15 @@ object TransactionController:
     clientRepository.findById(clientId.toLong) match
       case None => ctx.status(HttpStatus.NOT_FOUND)
       case Some(client) =>
+
         val transactionRequest = TransactionRequest.fromJson(ctx.body())
         val transactionTuple = transactionService.createTransactionBy(client, transactionRequest)
         
         transactionTuple match
           case Failure(exception: LimitException) => ctx.status(HttpStatus.UNPROCESSABLE_CONTENT)
-          case Failure(exception: RequiredException) => ctx.status(HttpStatus.BAD_REQUEST)
+          case Failure(exception: RequiredException) => ctx.status(HttpStatus.UNPROCESSABLE_CONTENT)
+          case Failure(exception: TenCharactersException) => ctx.status(HttpStatus.UNPROCESSABLE_CONTENT)
+          case Failure(exception: UnsupportedOperationException) => ctx.status(HttpStatus.UNPROCESSABLE_CONTENT)
           case Failure(exception) => ctx.status(HttpStatus.INTERNAL_SERVER_ERROR)
           
           case Success(tuple) =>

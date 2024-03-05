@@ -17,12 +17,12 @@ object AppConfiguration {
       config.router.apiBuilder(() => {
         path("/clientes/{id}/transacoes", () => {
           post(ctx => {
-            ctx.async(() => TransactionController.createNewTransaction(ctx, clientRepository, transactionService))
+            TransactionController.createNewTransaction(ctx, clientRepository, transactionService)
           })
         })
         path("/clientes/{id}/extrato", () => {
           get(ctx => {
-            ctx.async(() => StatementController.getStatement(ctx, clientRepository, statementService))
+            StatementController.getStatement(ctx, clientRepository, statementService)
           })
         })
       })

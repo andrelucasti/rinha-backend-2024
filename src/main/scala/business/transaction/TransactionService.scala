@@ -10,10 +10,6 @@ case class TransactionService(transactionRepository: TransactionRepository,
                               clientRepository: ClientRepository):
   def createTransactionBy(client: Client, 
                           transactionRequest: TransactionRequest): Try[(TransactionResponse, Transaction)] =
-
-    if transactionRequest.descricao.isEmpty
-    then throw RequiredException("Description is required")
-      
     Transaction.create(
       transactionRequest.valor,
       transactionRequest.tipo,
@@ -21,7 +17,7 @@ case class TransactionService(transactionRepository: TransactionRepository,
       client.id).map { newTransaction =>
 
       val newBalance = newTransaction.transactionType.newBalance(client)
-      
+
       (TransactionResponse(newBalance.limit.value, newBalance.total), newTransaction)
     }
     

@@ -20,7 +20,7 @@ class TransactionServiceIntegrationTest extends AnyFlatSpec {
 
   it should "return add new balance when transaction is credit" in {
     val client = Client(1, "Andre", balance = Balance(500, Limit(2000)))
-    val transactionRequest = TransactionRequest(1000, "c", "new credit value")
+    val transactionRequest = TransactionRequest("1000", "c", "new credit value")
 
     val tuple = subject.createTransactionBy(client, transactionRequest).get
     val response = tuple._1

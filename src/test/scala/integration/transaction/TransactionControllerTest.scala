@@ -34,7 +34,7 @@ class TransactionControllerTest extends AnyFlatSpec {
       val client = Client(1, "Andre", Balance(0, Limit(1000)))
       clientRepository.save(client)
 
-      val response = c.post(s"/clientes/${client.id}/transacoes", TransactionRequest(1000, "c", "credit 10").toJson)
+      val response = c.post(s"/clientes/${client.id}/transacoes", TransactionRequest("1000", "c", "credit 10").toJson)
       val transactionResponse = TransactionResponse.fromJson(response.body.string)
 
       Assertions.assert(response.code() == HttpStatus.OK.getCode)
@@ -49,9 +49,9 @@ class TransactionControllerTest extends AnyFlatSpec {
       val client = Client(1, "Andre", Balance(0, Limit(1000)))
       clientRepository.save(client)
 
-      c.post(s"/clientes/${client.id}/transacoes", TransactionRequest(1000, "c", "credit 10").toJson)
+      c.post(s"/clientes/${client.id}/transacoes", TransactionRequest("1000", "c", "credit 10").toJson)
 
-      val response = c.post(s"/clientes/${client.id}/transacoes", TransactionRequest(1000, "c", "credit 10").toJson)
+      val response = c.post(s"/clientes/${client.id}/transacoes", TransactionRequest("1000", "c", "credit 10").toJson)
       val transactionResponse = TransactionResponse.fromJson(response.body.string)
 
       Assertions.assert(response.code() == HttpStatus.OK.getCode)
@@ -66,9 +66,9 @@ class TransactionControllerTest extends AnyFlatSpec {
       val client = Client(1, "Andre", Balance(0, Limit(1000)))
       clientRepository.save(client)
 
-      c.post(s"/clientes/${client.id}/transacoes", TransactionRequest(1000, "c", "credit 10").toJson)
+      c.post(s"/clientes/${client.id}/transacoes", TransactionRequest("1000", "c", "credit 10").toJson)
 
-      val response = c.post(s"/clientes/${client.id}/transacoes", TransactionRequest(500, "d", "credit 10").toJson)
+      val response = c.post(s"/clientes/${client.id}/transacoes", TransactionRequest("500", "d", "credit 10").toJson)
       val transactionResponse = TransactionResponse.fromJson(response.body.string)
 
       Assertions.assert(response.code() == HttpStatus.OK.getCode)
@@ -82,18 +82,51 @@ class TransactionControllerTest extends AnyFlatSpec {
       val client = Client(1, "Andre", Balance(0, Limit(1000)))
       clientRepository.save(client)
 
-      val response = c.post(s"/clientes/${client.id}/transacoes", TransactionRequest(1001, "d", "debit 10").toJson)
+      val response = c.post(s"/clientes/${client.id}/transacoes", TransactionRequest("1001", "d", "debit 10").toJson)
       Assertions.assert(response.code() == HttpStatus.UNPROCESSABLE_CONTENT.getCode)
     })
   }
 
-  it should "return http status 400 when description is null or empty " in {
+  it should "return http status 422 when description is null or empty " in {
     JavalinTest.test(app, (s, c) => {
       val client = Client(1, "Andre", Balance(0, Limit(1000)))
       clientRepository.save(client)
 
-      val response = c.post(s"/clientes/${client.id}/transacoes", TransactionRequest(1000, "d", "").toJson)
-      Assertions.assert(response.code() == HttpStatus.BAD_REQUEST.getCode)
+      val responseCreditEmpty = c.post(s"/clientes/${client.id}/transacoes", TransactionRequest("1000", "c", "").toJson)
+      Assertions.assert(responseCreditEmpty.code() == HttpStatus.UNPROCESSABLE_CONTENT.getCode)
+
+      val responseDebitEmpty = c.post(s"/clientes/${client.id}/transacoes", TransactionRequest("1000", "d", "").toJson)
+      Assertions.assert(responseDebitEmpty.code() == HttpStatus.UNPROCESSABLE_CONTENT.getCode)
+
+      val responseCreditNUll = c.post(s"/clientes/${client.id}/transacoes", TransactionRequest("1000", "c", "null").toJson)
+      Assertions.assert(responseCreditNUll.code() == HttpStatus.UNPROCESSABLE_CONTENT.getCode)
+
+      val responseDebitNUll = c.post(s"/clientes/${client.id}/transacoes", TransactionRequest("1000", "d", "null").toJson)
+      Assertions.assert(responseDebitNUll.code() == HttpStatus.UNPROCESSABLE_CONTENT.getCode)
+    })
+  }
+
+  it should "return http status 422 when description is great than 10 characters" in {
+    JavalinTest.test(app, (s, c) => {
+      val client = Client(1, "Andre", Balance(0, Limit(1000)))
+      clientRepository.save(client)
+
+      val payload = s"""{"valor": 1000, "tipo": "d", "descricao": "maiorque10000000"}"""
+      val response = c.post(s"/clientes/${client.id}/transacoes", payload)
+
+      Assertions.assert(response.code() == HttpStatus.UNPROCESSABLE_CONTENT.getCode)
+    })
+  }
+
+  it should "return http status 400 when value is a float" in {
+    JavalinTest.test(app, (s, c) => {
+      val client = Client(1, "Andre", Balance(0, Limit(1000)))
+      clientRepository.save(client)
+
+      val payload = s"""{"valor": 1.2, "tipo": "d", "descricao": "huehuebr"}"""
+
+      val response = c.post(s"/clientes/${client.id}/transacoes", payload)
+      Assertions.assert(response.code() == HttpStatus.UNPROCESSABLE_CONTENT.getCode)
     })
   }
 }

@@ -5,7 +5,7 @@ import org.json4s.*
 import org.json4s.native.JsonMethods.*
 import org.json4s.native.Serialization.{read, write}
 
-case class TransactionRequest(valor: Int,
+case class TransactionRequest(valor: String,
                               tipo: String,
                               descricao: String)
 

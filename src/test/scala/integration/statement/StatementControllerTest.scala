@@ -28,9 +28,9 @@ class StatementControllerTest extends AnyFlatSpec {
       val client = Client(1, "Andre", Balance(0, Limit(1000)))
       clientRepository.save(client)
 
-      c.post(s"/clientes/${client.id}/transacoes", TransactionRequest(1000, "c", "credit 10").toJson)
-      c.post(s"/clientes/${client.id}/transacoes", TransactionRequest(1000, "c", "credit 10").toJson)
-      c.post(s"/clientes/${client.id}/transacoes", TransactionRequest(1000, "c", "credit 10").toJson)
+      c.post(s"/clientes/${client.id}/transacoes", TransactionRequest("1000", "c", "credit 10").toJson)
+      c.post(s"/clientes/${client.id}/transacoes", TransactionRequest("1000", "c", "credit 10").toJson)
+      c.post(s"/clientes/${client.id}/transacoes", TransactionRequest("1000", "c", "credit 10").toJson)
 
       val response = c.get(s"/clientes/${client.id}/extrato")
       Assertions.assert(response.code() == HttpStatus.OK.getCode)

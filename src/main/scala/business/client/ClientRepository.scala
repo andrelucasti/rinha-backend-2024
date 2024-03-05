@@ -1,8 +1,6 @@
 package io.andrelucas
 package business.client
 
-import business.client.{Balance, Client, Limit}
-
 trait ClientRepository {
   def save(client: Client): Unit
   def findById(clientId: Long):Option[Client]

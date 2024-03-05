@@ -4,6 +4,7 @@ CREATE TABLE clientes (
                           name varchar(100) not null,
                           "limit" integer not null,
                           balance integer not null default 0,
+                          version integer not null default 0,
                           created_at timestamp default now(),
                           updated_at timestamp default now()
 );

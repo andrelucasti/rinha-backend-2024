@@ -14,6 +14,8 @@ case class CreditTransaction(value: Long) extends TransactionType:
     Balance(newBalance, client.balance.limit)
 
   override def prefix(): String = "c"
+  
+  
 case class DebitTransaction(value: Long) extends TransactionType:
   override def newBalance(client: Client): Balance =
     val newBalance = client.balance.total - value
