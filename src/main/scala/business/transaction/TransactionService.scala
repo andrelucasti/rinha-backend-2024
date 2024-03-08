@@ -3,8 +3,7 @@ package business.transaction
 
 import app.transaction.{TransactionRequest, TransactionResponse}
 import business.client.{Client, ClientRepository}
-
-import io.andrelucas.business.transaction
+import business.transaction
 
 import scala.util.Try
 
@@ -34,13 +33,3 @@ case class TransactionService(transactionRepository: TransactionRepository,
 
       (TransactionResponse(newBalance.limit.value, newBalance.total), newTransaction)
     }
-    
-  
-  def save(transaction: Transaction, 
-           client: Client): Unit = {
-    
-    transactionRepository.save(transaction)
-
-    val balance = transaction.transactionType.newBalance(client)
-    clientRepository.updateBalance(client, balance)
-  }

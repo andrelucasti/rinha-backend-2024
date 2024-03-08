@@ -17,19 +17,15 @@ object AppConfiguration {
       config.router.apiBuilder(() => {
         path("/clientes/{id}/transacoes", () => {
           post(ctx => {
-            TransactionController.createTransaction(ctx, transactionService)
+            ctx.async(()=> TransactionController.createTransaction(ctx, transactionService))
           })
         })
         path("/clientes/{id}/extrato", () => {
           get(ctx => {
-            StatementController.getStatement(ctx, clientRepository, statementService)
+            ctx.async(()=> StatementController.getStatement(ctx, clientRepository, statementService))
           })
         })
       })
-    })
-
-    javalin.get("/", ctx => {
-      ctx.result("Hello World")
     })
 
     javalin

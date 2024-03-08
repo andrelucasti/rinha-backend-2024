@@ -5,6 +5,8 @@ import io.andrelucas.business.client.ClientRepository
 import io.andrelucas.business.statement.StatementService
 import io.javalin.http.{Context, HttpStatus}
 
+import scala.util.{Failure, Success}
+
 case class StatementController()
 object StatementController:
 
@@ -13,11 +15,9 @@ object StatementController:
                    statementService: StatementService): Context =
 
     val clientId = ctx.pathParam("id")
-    val clientOptional = clientRepository.findById(clientId.toLong)
+    val statementResponse = statementService.fetchStatementBy(clientId.toLong)
 
-    clientOptional match
-      case None => ctx.status(HttpStatus.NOT_FOUND)
-      case Some(client) =>
-        val statementResponse = statementService.fetchStatementBy(clientId.toLong)
-        ctx.json(statementResponse.toJson).status(HttpStatus.OK)
+    statementResponse match
+      case Failure(error) => ctx.status(HttpStatus.NOT_FOUND)
+      case Success(statement) => ctx.json(statement.toJson).status(HttpStatus.OK)
 

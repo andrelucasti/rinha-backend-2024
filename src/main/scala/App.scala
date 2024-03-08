@@ -14,12 +14,6 @@ object App {
   @main
   def main(): Unit = {
     val db = Database.forConfig("rinhadb")
-//    val db2 = Database.forURL(
-//      "jdbc:postgresql://localhost:5432/rinha",
-//      driver = "org.postgresql.Driver",
-//      executor = AsyncExecutor("rinha", numThreads = 10, queueSize = 1000)
-//    )
-
 
     val clientRepository: ClientRepository = InDiskClientRepository(db)
     val transactionRepository: TransactionRepository = InDiskTransactionRepository(db)

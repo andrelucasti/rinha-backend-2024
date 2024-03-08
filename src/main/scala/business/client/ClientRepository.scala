@@ -1,12 +1,9 @@
 package io.andrelucas
 package business.client
 
-import business.transaction.TransactionType
-
 trait ClientRepository {
   def save(client: Client): Unit
   def findById(clientId: Long):Option[Client]
-  def updateBalance(client: Client, balance: Balance):Unit
 }
 
 class InMemoryClientRepository extends ClientRepository:
@@ -20,7 +17,3 @@ class InMemoryClientRepository extends ClientRepository:
   override def findById(clientId: Long): Option[Client] = {
     data.get(clientId)
   }
-
-  override def updateBalance(client: Client, balance: Balance): Unit =
-    val clientUpdated = client.copy(balance = balance)
-    data += (clientUpdated.id -> clientUpdated)

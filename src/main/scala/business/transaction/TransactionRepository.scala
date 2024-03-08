@@ -1,29 +1,23 @@
 package io.andrelucas
 package business.transaction
 
-import io.andrelucas.business.client.{Balance, ClientRepository, Limit}
-import io.andrelucas.business.statement.Statement
+import business.client.{Balance, ClientRepository}
+import business.statement.Statement
 
 import scala.collection.mutable
+import scala.util.Try
 
 trait TransactionRepository {
-  def save(transaction: Transaction):Unit
-  def findByClientId(clientId: Long): Statement
+  def findByClientId(clientId: Long): Try[Statement]
   def createTransaction(transaction: Transaction): Balance
 }
 
 case class InMemoryTransactionRepository(clientRepository: ClientRepository) extends TransactionRepository:
   private val data: scala.collection.mutable.Buffer[Transaction] = mutable.Buffer.empty
-  override def save(transaction: Transaction): Unit =
-    data += transaction
-  
-  override def findByClientId(clientId: Long): Statement = ???
+  override def findByClientId(clientId: Long): Try[Statement] = ???
 
   override def createTransaction(transaction: Transaction): Balance =
     data += transaction
-    
-    val client = clientRepository.findById(transaction.clientId).get
-    val balance = transaction.transactionType.newBalance(client)
-    clientRepository.updateBalance(client, balance);
 
-    balance
+    val client = clientRepository.findById(transaction.clientId).get
+    transaction.transactionType.newBalance(client)

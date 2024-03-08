@@ -10,13 +10,12 @@ import java.time.LocalDateTime
 sealed case class ClientEntity(id: Long, 
                                name: String, 
                                limit: Long, 
-                               balance: Long, 
-                               version: Int,
+                               balance: Long,
                                updatedAt: Option[LocalDateTime])
 
 object ClientEntity:
   def fromClient(c: Client): ClientEntity =
-    ClientEntity(c.id, c.name, c.balance.limit.value, c.balance.total, 0, Some(LocalDateTime.now()))
+    ClientEntity(c.id, c.name, c.balance.limit.value, c.balance.total, Some(LocalDateTime.now()))
   
   extension (entity: ClientEntity)
     def toClient: Client =
@@ -28,10 +27,8 @@ case class ClientTable(tag: Tag) extends Table[ClientEntity](tag, "clientes") {
   def name = column[String]("name")
   def limit = column[Long]("limit")
   def balance = column[Long]("balance")
-  def version = column[Int]("version")
   def updatedAt = column[LocalDateTime]("updated_at", O.Default(LocalDateTime.now()))
-
-  override def * = (id, name, limit, balance, version, updatedAt.?) <> ((ClientEntity.apply _).tupled, ClientEntity.unapply) 
+  override def * = (id, name, limit, balance, updatedAt.?) <> ((ClientEntity.apply _).tupled, ClientEntity.unapply)
 }
 
 val clientTable = TableQuery[ClientTable]
