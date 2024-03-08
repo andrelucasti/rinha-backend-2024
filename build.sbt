@@ -21,7 +21,6 @@ libraryDependencies += "org.postgresql" % "postgresql" % "42.7.1"
 
 enablePlugins(DockerPlugin, JavaAppPackaging)
 
-Docker / packageName := "rinhabackend2024"
+Docker / packageName := "andrelucastic/rinhabackend2024"
 dockerExposedPorts ++= Seq(8080)
 dockerBaseImage := "eclipse-temurin:21"
-//dockerBuildOptions ++= Seq("--platform", "linux/amd64", "-t", "rinhabackend2024")

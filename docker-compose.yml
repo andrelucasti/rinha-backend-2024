@@ -2,9 +2,7 @@ version: "3.5"
 
 services:
   api01: &api
-    # Lembre-se de que seu serviço HTTP deve estar hospedado num repositório
-    # publicamente acessível! Ex.: hub.docker.com
-    image: rinhabackend2024:1.0
+    image: andrelucastic/rinhabackend2024:1.0
     hostname: api01
     environment:
       - DB_HOSTNAME=db
@@ -55,19 +53,8 @@ services:
     deploy:
       resources:
         limits:
-          # Note que a soma de todos os limites dos serviços
-          # aqui declarados é de 1.5 unidades de CPU e 550MB
-          # de memória. A distribuição feita aqui é apenas
-          # um exemplo – distribua como quiser.
           cpus: "0.4"
           memory: "150MB"
-
-# O uso do modo `bridge` deve ser adequado à carga que será usada no teste.
-# A edição anterior se beneficiou do modo host pois o volume de requisições
-# era relativamente alto e a virtualização da rede se tornou um gargalo, mas
-# este modo é mais complexo de ser configurado. Fique à vontade para usar o
-# modo que quiser desde que não conflite com portas trivialmente usadas em um
-# SO.
 networks:
   default:
     driver: bridge
