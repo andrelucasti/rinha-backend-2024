@@ -1,8 +1,9 @@
 package io.andrelucas
 package app.statement
 
-import io.andrelucas.business.client.ClientRepository
-import io.andrelucas.business.statement.StatementService
+import business.client.ClientRepository
+import business.statement.StatementService
+
 import io.javalin.http.{Context, HttpStatus}
 
 import scala.util.{Failure, Success}

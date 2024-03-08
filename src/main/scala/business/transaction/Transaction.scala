@@ -17,7 +17,6 @@ object Transaction:
              description: String, 
              clientId: Long): Try[Transaction] =
     
-    
     Try {
       val valueAsLong = if value.matches(valorPattern) then
         value.toLong
@@ -43,7 +42,6 @@ object Transaction:
       
       Transaction(valueAsLong, t, description, clientId, LocalDateTime.now())
     }
-
 
   def restore(value: Long, transactionType: String, description: String, clientId: Long, date: LocalDateTime): Transaction =
     val t = transactionType match
