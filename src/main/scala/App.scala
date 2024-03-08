@@ -1,14 +1,13 @@
 package io.andrelucas
 
-import business.client.{ClientRepository, InMemoryClientRepository}
-import business.statement.{InMemoryStatementRepository, StatementRepository, StatementService}
+import business.client.ClientRepository
+import business.statement.{StatementRepository, StatementService}
 import business.transaction.{TransactionRepository, TransactionService}
+import repository.client.InDiskClientRepository
+import repository.statement.InDiskStatementRepository
+import repository.transaction.InDiskTransactionRepository
 
-import io.andrelucas.repository.client.InDiskClientRepository
-import io.andrelucas.repository.statement.InDiskStatementRepository
-import io.andrelucas.repository.transaction.InDiskTransactionRepository
 import slick.jdbc.JdbcBackend.Database
-import slick.util.AsyncExecutor
 
 object App {
 

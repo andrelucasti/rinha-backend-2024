@@ -24,7 +24,13 @@ object Transaction:
       else
         throw RequiredException("Value should be a number")
 
-      if description.isEmpty || description == null || description == "null"
+      if description == null
+      then throw RequiredException("Description is required")
+
+      if description == "null"
+      then throw RequiredException("Description is required")
+
+      if description.isEmpty
       then throw RequiredException("Description is required")
 
       if description.length > 10

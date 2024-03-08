@@ -21,7 +21,7 @@ case class DebitTransaction(value: Long) extends TransactionType:
     val newBalance = client.balance.total - value
     
     if newBalance < client.balance.limit.until then 
-      throw LimitException(s"the client ${client.id} limit was exceeded")
+      throw LimitException(s"the client ${client.id} limit was exceeded - new balance: $newBalance, limit: ${client.balance.limit}")
     
     Balance(newBalance, client.balance.limit)
 

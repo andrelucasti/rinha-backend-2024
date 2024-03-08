@@ -14,7 +14,7 @@ import org.scalatest.flatspec.AnyFlatSpec
 
 class TransactionControllerTest extends AnyFlatSpec {
   val clientRepository: ClientRepository = InMemoryClientRepository()
-  val transactionRepository: TransactionRepository = InMemoryTransactionRepository()
+  val transactionRepository: TransactionRepository = InMemoryTransactionRepository(clientRepository)
   val statementRepository: StatementRepository = InMemoryStatementRepository(transactionRepository, clientRepository)
 
   val statementService: StatementService = StatementService(statementRepository)

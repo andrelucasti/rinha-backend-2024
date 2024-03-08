@@ -1,6 +1,8 @@
 package io.andrelucas
 package business.client
 
+import business.transaction.TransactionType
+
 trait ClientRepository {
   def save(client: Client): Unit
   def findById(clientId: Long):Option[Client]

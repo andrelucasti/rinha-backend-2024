@@ -2,21 +2,21 @@
 CREATE TABLE clientes (
                           id serial primary key,
                           name varchar(100) not null,
-                          "limit" integer not null,
-                          balance integer not null default 0,
+                          "limit" bigint not null,
+                          balance bigint not null default 0,
                           version integer not null default 0,
-                          created_at timestamp default now(),
-                          updated_at timestamp default now()
+                          created_at timestamp default CURRENT_TIMESTAMP,
+                          updated_at timestamp default CURRENT_TIMESTAMP
 );
 
 create table transactions (
                               id serial primary key,
-                              description varchar(20) not null,
-                              value integer not null,
-                              transaction_type char not null,
+                              description varchar(10) not null,
+                              value bigint not null,
+                              transaction_type varchar(1) not null,
                               client_id integer not null,
-                              created_at timestamp default now(),
-                              updated_at timestamp default now()
+                              created_at timestamp default CURRENT_TIMESTAMP,
+                              updated_at timestamp default CURRENT_TIMESTAMP
 );
 
 DO $$

@@ -17,7 +17,7 @@ object AppConfiguration {
       config.router.apiBuilder(() => {
         path("/clientes/{id}/transacoes", () => {
           post(ctx => {
-            TransactionController.createNewTransaction(ctx, clientRepository, transactionService)
+            TransactionController.createTransaction(ctx, transactionService)
           })
         })
         path("/clientes/{id}/extrato", () => {
