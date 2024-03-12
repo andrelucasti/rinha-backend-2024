@@ -1,6 +1,6 @@
 import com.typesafe.sbt.packager.docker.DockerVersion
 
-ThisBuild / version := "1.0"
+ThisBuild / version := "2.0"
 
 ThisBuild / scalaVersion := "3.3.1"
 
@@ -24,3 +24,4 @@ enablePlugins(DockerPlugin, JavaAppPackaging)
 Docker / packageName := "andrelucastic/rinhabackend2024"
 dockerExposedPorts ++= Seq(8080)
 dockerBaseImage := "eclipse-temurin:21"
+dockerBuildOptions := Seq("--no-cache",  "--platform", "linux/amd64")
